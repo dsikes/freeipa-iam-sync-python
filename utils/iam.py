@@ -34,7 +34,6 @@ def get_iam_public_key_ids_by_user(username):
     iam = get_iam_client()
     public_key_id_list = []
     public_key_ids = iam.list_ssh_public_keys(UserName=username)
-    print(public_key_ids)
     if len(public_key_ids['SSHPublicKeys']) > 0:
         for pk in public_key_ids['SSHPublicKeys']:
             if pk['Status'] == 'Active':
