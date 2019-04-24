@@ -18,5 +18,5 @@ for user in iam_users:
         # ipa_add_user()
 
 for user in ipa_users:
-    if user not in iam_users:
+    if user not in iam_users and user is not 'admin':
         print('would remove %s', user)
