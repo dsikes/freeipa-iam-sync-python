@@ -15,6 +15,15 @@ def get_iam_user(username):
     iam = get_iam_client()
     return iam.get_user(UserName=username)
 
+def get_user_props_from_tags(user):
+    """ this function will reformat the complex tags list to a simple k/v pair dict """
+    simple_struct = {}
+    if 'Tags' in user:
+        for tag in user['Tags']:
+            simple_struct[tag['Key']] = tag['Value']
+        return simple_struct
+    return False
+
 def get_iam_public_key_ids_by_user(username):
     iam = get_iam_client()
     public_key_id_list = []
@@ -48,3 +57,4 @@ def get_iam_ssh_keys_by_user(username):
             if ssh_key:
                 ssh_keys.append(ssh_key['SSHPublicKey']['SSHPublicKeyBody'])
     return ssh_keys
+

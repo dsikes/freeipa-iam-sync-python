@@ -4,20 +4,19 @@ from .config import get_config
 config = get_config()
 
 if 'IPA_HOST' not in config:
-    raise Exception("UNABLE TO COMMUNICATE WITH FreeIPA HOST. Please set IPA_HOST env var.")
+    raise Exception("UNABLE TO COMMUNICATE WITH FreeIPA HOST. Please set IPA_HOST config value.")
 
 if 'IPA_USERNAME' not in config:
-    raise Exception("UNABLE TO LOGIN. Please set IPA_USERNAME env var.")
+    raise Exception("UNABLE TO LOGIN. Please set IPA_USERNAME config value.")
 
 if 'IPA_PASSWORD' not in config:
-    raise Exception("UNABLE TO LOGIN. Please set IPA_PASSWORD env var.")
+    raise Exception("UNABLE TO LOGIN. Please set IPA_PASSWORD config value.")
 
-if 'IPA_GROUP' not in config:
-    raise Exception("UNABLE TO MANAGE GROUP. Please set IPA_GROUP env var.")
-
+if 'IPA_SUDO_GROUP' not in config:
+    raise Exception("UNABLE TO MANAGE SUDO GROUP. Please set IPA_SUDO_GROUP config value.")
 
 ipa_server          = config['IPA_HOST']
-ipa_group           = config['IPA_GROUP']
+ipa_sudo_group      = config['IPA_GROUP']
 ipa_service_user    = config['IPA_USERNAME']
 ipa_service_pass    = config['IPA_PASSWORD']
 
@@ -26,21 +25,42 @@ def get_ipa_client():
     client.login(ipa_service_user, ipa_service_pass)
     return client
 
-def ensure_ipa_group():
-    """ this function will ensure that the target group exist """
+def ensure_ipa_sudo_group():
+    """ this function will ensure that the sudo group exist """
     client = get_ipa_client()
     try:
-        g = client.group_show(ipa_group)
+        g = client.group_show(ipa_sudo_group)
     except Exception as err:
-        client.group_add(ipa_group)
+        client.group_add(ipa_sudo_group)
+
+def get_ipa_sudo_users():
+    """ list users in the sudo group. """
+    client = get_ipa_client()
+    return client.group_show(ipa_sudo_group)
 
 def get_ipa_users():
-    """ list users in the target group. """
+    """ list all users in free ipa """
     client = get_ipa_client()
-    return client.group_show(ipa_group)
+    return client.user_find('')
 
-
-def add_user():
-    """ add a user, and put the user in the target group """
+def add_user(username, first_name, last_name, fullname, email, ssh_keys):
+    """ add a user to free ipa"""
     client = get_ipa_client()
-    client.user_add()
+    try:
+        client.user_add(username, first_name, last_name, fullname, mail=email, ssh_key=ssh_keys)
+    except Exception as err:
+        # TODO: handle this critical error
+        print(str(err))
+        return False    
+    return True
+
+def del_user(username):
+    """ removes a user from free ipa """
+    client = get_ipa_client()
+    try:
+        client.user_del(username)
+    except Exception as err:
+        # TODO: handle this critical error
+        print(str(err))
+        return False
+    return True

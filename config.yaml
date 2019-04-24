@@ -1,4 +1,4 @@
 IPA_HOST: ipa.decisionlab.aws
 IPA_USERNAME: admin
 IPA_PASSWORD: Fr33IPA#DS#Admin
-IPA_GROUP: sshusers
+IPA_SUDO_GROUP: sudousers
