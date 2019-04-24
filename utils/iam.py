@@ -15,12 +15,14 @@ def get_iam_user_list():
 def get_iam_user(username):
     iam     = get_iam_client()
     user    = iam.get_user(UserName=username)
+    pprint(user)
     return get_user_props_from_tags(user)
 
 def get_user_props_from_tags(user):
     """ this function will reformat the complex tags list to a simple k/v pair dict """
     simple_struct = {}
-    if 'Tags' in user['ResponseMetadata']:
+    user = user['ResponseMetadata']
+    if 'Tags' in user:
         for tag in user['Tags']:
             simple_struct[tag['Key']] = tag['Value']
         return simple_struct
