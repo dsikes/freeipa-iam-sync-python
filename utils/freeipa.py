@@ -55,18 +55,23 @@ def ipa_add_user(data):
     props = data['props']
 
     if 'SSO' not in props:
+        print('SSO not in props')
         return False
 
     if 'FirstName' not in props:
+        print('FirstName not in props')
         return False
 
     if 'LastName' not in props:
+        print('LastName not in props' )
         return False
     
     if 'Email' not in props:
+        print('Email not in props')
         return False
 
     if data['ssh_keys'] == False:
+        print('No SSH Keys')
         return False
 
     username = props['SSO']
