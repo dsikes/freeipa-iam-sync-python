@@ -16,7 +16,7 @@ if 'IPA_SUDO_GROUP' not in config:
     raise Exception("UNABLE TO MANAGE SUDO GROUP. Please set IPA_SUDO_GROUP config value.")
 
 ipa_server          = config['IPA_HOST']
-ipa_sudo_group      = config['IPA_GROUP']
+ipa_sudo_group      = config['IPA_SUDO_GROUP']
 ipa_service_user    = config['IPA_USERNAME']
 ipa_service_pass    = config['IPA_PASSWORD']
 
