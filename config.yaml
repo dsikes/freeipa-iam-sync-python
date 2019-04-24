@@ -1,0 +1,4 @@
+ipahost: ipa.decisionlab.aws
+ipauser: admin
+ipapass: Fr33IPA#DS#Admin
+ipagroup: sshusers
