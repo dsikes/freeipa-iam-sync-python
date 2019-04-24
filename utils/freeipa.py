@@ -46,7 +46,7 @@ def get_ipa_users():
     users = client.user_find('')
     if users['count'] > 0:
         for user in users['result']:
-            user_list.append(user['uid'])
+            user_list.append(user['uid'][0])
     return user_list
 
 def add_user(username, first_name, last_name, fullname, email, ssh_keys):
