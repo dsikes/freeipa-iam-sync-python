@@ -19,9 +19,8 @@ def get_iam_user(username):
 
 def get_user_props_from_tags(user):
     """ this function will reformat the complex tags list to a simple k/v pair dict """
-    pprint(user)
     simple_struct = {}
-    if 'Tags' in user:
+    if 'Tags' in user['ResponseMetadata']:
         for tag in user['Tags']:
             simple_struct[tag['Key']] = tag['Value']
         return simple_struct
