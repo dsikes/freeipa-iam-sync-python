@@ -29,10 +29,9 @@ def get_ipa_users():
     return client.group_show('')
 
 def ensure_ipa_group():
+    """ this function will ensure that the target group exist """
     client = get_ipa_client()
     try:
         g = client.group_show(ipa_group)
-        print(g)
     except Exception as err:
-        print(str(err))
-    
+        client.group_add(ipa_group)
