@@ -47,7 +47,7 @@ def get_ipa_users():
     if users['count'] > 0:
         for user in users['result']:
             user_list.append(user['uid'])
-    return users
+    return user_list
 
 def add_user(username, first_name, last_name, fullname, email, ssh_keys):
     """ add a user to free ipa"""
