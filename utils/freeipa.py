@@ -52,12 +52,28 @@ def get_ipa_user_list():
 def ipa_add_user(data):
     """ add a user to free ipa"""
     client = get_ipa_client()
+    props = data['props']
 
-    username = data['props']['SSO']
-    first_name = data['props']['FirstName']
-    last_name = data['props']['LastName']
+    if 'SSO' not in props:
+        return False
+
+    if 'FirstName' not in props:
+        return False
+
+    if 'LastName' not in props:
+        return False
+    
+    if 'Email' not in props:
+        return False
+
+    if data['ssh_keys'] == False:
+        return False
+
+    username = props['SSO']
+    first_name = props['FirstName']
+    last_name = props['LastName']
     fullname = '%s %s' % (first_name, last_name)
-    email = data['props']['Email']
+    email = props['Email']
     ssh_keys = data['ssh_keys']
 
     try:

@@ -62,5 +62,8 @@ def get_iam_ssh_keys_by_user(username):
             ssh_key = get_iam_ssh_key_by_user_public_key_id(username, ssh_public_key_id)
             if ssh_key:
                 ssh_keys.append(ssh_key['SSHPublicKey']['SSHPublicKeyBody'])
+    if len(ssh_keys) == 0:
+        return False
     return ssh_keys
+
 
