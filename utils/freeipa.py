@@ -24,10 +24,6 @@ def get_ipa_client():
     client.login(ipa_service_user, ipa_service_pass)
     return client
 
-def get_ipa_users():
-    client = get_ipa_client()
-    return client.group_show('')
-
 def ensure_ipa_group():
     """ this function will ensure that the target group exist """
     client = get_ipa_client()
@@ -35,3 +31,14 @@ def ensure_ipa_group():
         g = client.group_show(ipa_group)
     except Exception as err:
         client.group_add(ipa_group)
+
+def get_ipa_users():
+    """ list users in the target group. """
+    client = get_ipa_client()
+    return client.group_show(ipa_group)
+
+
+def add_user():
+    """ add a user, and put the user in the target group """
+    client = get_ipa_client()
+    client.user_add()
