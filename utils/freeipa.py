@@ -1,6 +1,7 @@
 from python_freeipa import Client
 from .config import get_config
 
+
 config = get_config()
 
 if 'IPA_HOST' not in config:

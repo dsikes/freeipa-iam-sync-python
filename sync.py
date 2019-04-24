@@ -1,3 +1,4 @@
 from utils import *
+from pprint import pprint
 
-print(get_ipa_users())
+pprint(get_ipa_users())
