@@ -19,9 +19,9 @@ for user in iam_users:
         else:
             # TODO: log invalid user
             # TODO: add validation lib to enforce schema
-            print("invalid props for user %s", user)
+            print("invalid props for user %s" % user)
 
 for user in ipa_users:
     if user != 'admin':
         if user not in iam_users:
-            print('would remove %s', user)
+            print('would remove %s' % user)
