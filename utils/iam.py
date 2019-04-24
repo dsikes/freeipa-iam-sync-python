@@ -12,7 +12,7 @@ def get_iam_user_list():
         user_list.append(user['UserName'])
     return user_list
 
-def get_iam_user(username):
+def get_iam_user_props(username):
     iam     = get_iam_client()
     user    = iam.get_user(UserName=username)
     return get_user_props_from_tags(user)

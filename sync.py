@@ -13,9 +13,13 @@ ipa_users = get_ipa_user_list()
 for user in iam_users:
     if user not in ipa_users:
         print('would add %s', user)
-        props = get_iam_user(user)
-        pprint(props)
-        # ipa_add_user()
+        user_props = get_iam_user_props(user)
+        if user_props:
+            ipa_add_user(user_props)
+        else:
+            # TODO: log invalid user
+            # TODO: add validation lib to enforce schema
+            print("invalid props for user %s", user)
 
 for user in ipa_users:
     if user != 'admin':
