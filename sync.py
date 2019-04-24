@@ -1,3 +1,2 @@
 from utils import *
-users = get_ipa_users()
-print(users)
+ensure_ipa_group()
