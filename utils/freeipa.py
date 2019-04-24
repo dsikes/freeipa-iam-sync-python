@@ -41,8 +41,11 @@ def get_ipa_sudo_users():
 
 def get_ipa_users():
     """ list all users in free ipa """
+    users = []
     client = get_ipa_client()
-    return client.user_find('')
+    for user in client.user_find(''):
+        users.append(user['uid'])
+    return users
 
 def add_user(username, first_name, last_name, fullname, email, ssh_keys):
     """ add a user to free ipa"""
