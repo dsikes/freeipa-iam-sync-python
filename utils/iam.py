@@ -15,7 +15,6 @@ def get_iam_user_list():
 def get_iam_user(username):
     iam     = get_iam_client()
     user    = iam.get_user(UserName=username)
-    pprint(user)
     return get_user_props_from_tags(user)
 
 def get_user_props_from_tags(user):
