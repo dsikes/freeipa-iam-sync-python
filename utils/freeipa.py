@@ -49,9 +49,17 @@ def get_ipa_user_list():
             user_list.append(user['uid'][0])
     return user_list
 
-def ipa_add_user(username, first_name, last_name, fullname, email, ssh_keys):
+def ipa_add_user(data):
     """ add a user to free ipa"""
     client = get_ipa_client()
+
+    username = data['props']['SSO']
+    first_name = data['props']['FirstName']
+    last_name = data['props']['LastName']
+    fullname = '%s %s' % (first_name, last_name)
+    email = data['props']['Email']
+    ssh_keys = data['ssh_keys']
+
     try:
         client.user_add(username, first_name, last_name, fullname, mail=email, ssh_key=ssh_keys)
     except Exception as err:

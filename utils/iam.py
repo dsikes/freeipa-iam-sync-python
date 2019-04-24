@@ -13,9 +13,12 @@ def get_iam_user_list():
     return user_list
 
 def get_iam_user_props(username):
-    iam     = get_iam_client()
-    user    = iam.get_user(UserName=username)
-    return get_user_props_from_tags(user)
+    iam         = get_iam_client()
+    user        = iam.get_user(UserName=username)
+    return {
+        'props': get_user_props_from_tags(user),
+        'ssh_keys': get_iam_ssh_keys_by_user(username)
+    }
 
 def get_user_props_from_tags(user):
     """ this function will reformat the complex tags list to a simple k/v pair dict """
