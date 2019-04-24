@@ -12,8 +12,9 @@ def get_iam_user_list():
     return user_list
 
 def get_iam_user(username):
-    iam = get_iam_client()
-    return iam.get_user(UserName=username)
+    iam     = get_iam_client()
+    profile = iam.get_user(UserName=username)
+    return get_user_props_from_tags(profile)
 
 def get_user_props_from_tags(user):
     """ this function will reformat the complex tags list to a simple k/v pair dict """

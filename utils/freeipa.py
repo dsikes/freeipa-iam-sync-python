@@ -39,7 +39,7 @@ def get_ipa_sudo_users():
     client = get_ipa_client()
     return client.group_show(ipa_sudo_group)
 
-def get_ipa_users():
+def get_ipa_user_list():
     """ list all users in free ipa """
     user_list = []
     client = get_ipa_client()
@@ -49,7 +49,7 @@ def get_ipa_users():
             user_list.append(user['uid'][0])
     return user_list
 
-def add_user(username, first_name, last_name, fullname, email, ssh_keys):
+def ipa_add_user(username, first_name, last_name, fullname, email, ssh_keys):
     """ add a user to free ipa"""
     client = get_ipa_client()
     try:
@@ -60,7 +60,7 @@ def add_user(username, first_name, last_name, fullname, email, ssh_keys):
         return False    
     return True
 
-def del_user(username):
+def ipa_del_user(username):
     """ removes a user from free ipa """
     client = get_ipa_client()
     try:
