@@ -15,7 +15,10 @@ for user in iam_users:
         print('would add %s', user)
         user_props = get_iam_user_props(user)
         if user_props['props'] != False:
-            ipa_add_user(user_props)
+            if ipa_add_user(user_props):
+                print('added %s' % user)
+            else:
+                print('failed to add %s' % user)
         else:
             # TODO: log invalid user
             # TODO: add validation lib to enforce schema
