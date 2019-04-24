@@ -14,7 +14,7 @@ for user in iam_users:
     if user not in ipa_users:
         print('would add %s', user)
         user_props = get_iam_user_props(user)
-        if user_props:
+        if user_props != False:
             ipa_add_user(user_props)
         else:
             # TODO: log invalid user
